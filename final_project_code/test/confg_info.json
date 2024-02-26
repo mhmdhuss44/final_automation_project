@@ -1,0 +1,15 @@
+{
+  "hub_url": "http://192.168.146.1:4444",
+  "browsers": [
+    {
+      "browser_name": "chrome",
+      "platform_name": "Windows 11"
+    },
+    {
+      "browser_name": "firefox",
+      "platform_name": "Windows 11"
+    }
+  ],
+  "testing_mode": "parallel" ,
+  "web_link": "https://www.geeksforgeeks.org/"
+}
