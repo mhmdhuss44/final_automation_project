@@ -6,15 +6,15 @@ from selenium import webdriver
 import concurrent.futures
 from infra.basePage import base
 from infra.wrapper import browserWrapper
+from logic.article_logic import writeArticle
 from logic.login_logout_logic import loginLogic, unsucess_login, logout_logic
+from logic.run_code_logic import RunCode
+from logic.videos_logic import saveVideo, unsaveVideos
 
 
-class gridProject(unittest.TestCase):
+class loginTests(unittest.TestCase):
     def setUp(self):
         self.infra_layer=browserWrapper()
-        self.infra_layer.load_configurations()
-        # self.basePage=base(self.infra_layer.get_all_configurations())
-        self.infra_layer.preapare_cab_list()
         self.configs=self.infra_layer.get_all_configurations()
 
 
@@ -37,40 +37,35 @@ class gridProject(unittest.TestCase):
 
     # this test is used to verify that we can successfully login with the right email and password
     def test_verify_successful_login(self, cabs, browserType):
-        try:
-            self.loginPage = loginLogic(browserType,self.configs,cabs)
-            result = self.loginPage.execute_all_log_in()
-            self.driver=self.loginPage._driver
-            time.sleep(1)
-            assert result, "Login was not successful"
-        except Exception as e:
-            assert False, f"An error occurred: {str(e)}"
+        self.loginPage = loginLogic(browserType,self.configs,cabs)
+        result = self.loginPage.execute_all_log_in()
+        self.driver=self.loginPage._driver
+        assert result, "Login was not successful"
+
 
 
 
     # negative test: this test is used to verify that we cant successed to login with right email and wrong password
     def test_verify_unsuccessful_login(self, cabs, browserType):
-        try:
-            self.failLogin = unsucess_login(browserType,self.configs,cabs)
-            result = self.failLogin.execute_all_fail_log_in()
-            self.driver = self.failLogin._driver
-            time.sleep(1)
-            assert result, "BE careful ,Login with wrong password was successful!!!"
-        except Exception as e:
-            assert False, f"An error occurred: {str(e)}"
+        self.failLogin = unsucess_login(browserType,self.configs,cabs)
+        result = self.failLogin.execute_all_fail_log_in()
+        self.driver = self.failLogin._driver
+        time.sleep(1)
+        assert result, "BE careful ,Login with wrong password was successful!!!"
+
 
 
 
     # this test is used to verify that the user can successfully logout after he logged in
     def test_verify_successful_logout(self, cabs, browserType):
-        try:
-            self.logoutPage = logout_logic(browserType,self.configs,cabs)
-            result = self.logoutPage.execute_all_log_out()
-            self.driver = self.logoutPage._driver
-            time.sleep(2)
-            assert result, "Login was not successful"
-        except Exception as e:
-            assert False, f"An error occurred: {str(e)}"
+        self.logoutPage = logout_logic(browserType,self.configs,cabs)
+        result = self.logoutPage.execute_all_log_out()
+        self.driver = self.logoutPage._driver
+        assert result, "Logut was not successful"
+
+
+
+
 
 
 

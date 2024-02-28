@@ -9,6 +9,8 @@ class browserWrapper:
         self.webLink = None
         self.browsers_list = None
         self.cab_list=[]
+        self.load_configurations()
+        self.preapare_cab_list()
 
 
     def load_configurations(self):
