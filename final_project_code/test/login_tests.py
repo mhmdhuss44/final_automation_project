@@ -63,7 +63,6 @@ class loginTests(unittest.TestCase):
         # now we do the logout
         self.logoutPage = logout_logic(browser_type,self.infra_layer.get_all_configurations(),cap,self.loginPage._driver)
         result = self.logoutPage.execute_all_log_out()
-        print("55555", result)
         assert result == True, "Logout was not successful"
 
         self.infra_layer.quit_drive(self.logoutPage._driver)

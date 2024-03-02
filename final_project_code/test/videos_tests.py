@@ -31,7 +31,7 @@ class videoTests(unittest.TestCase):
 
         self.savedVideo = saveVideo(browser_type,self.infra_layer.get_all_configurations(),cap,self.loginPage._driver)
         result = self.savedVideo.execute_all_save_video_process()
-        assert result, "video wasnt saved successfuly"
+        assert result==True, "video wasnt saved successfuly"
 
         self.infra_layer.quit_drive(self.savedVideo._driver)
 
@@ -52,7 +52,7 @@ class videoTests(unittest.TestCase):
         self.unsavedVideo = unsaveVideos(browser_type,self.infra_layer.get_all_configurations(),cap,self.savedVideo._driver)
         result = self.unsavedVideo.unsave_video_flow()
         self.driver = self.unsavedVideo._driver
-        assert not result, "video wasnt unsaved successfuly"
+        assert not result==True, "video wasnt unsaved successfuly"
 
         self.infra_layer.quit_drive(self.unsavedVideo._driver)
 
