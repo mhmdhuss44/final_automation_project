@@ -1,5 +1,7 @@
 from selenium.webdriver import Keys, ActionChains
-from logic.login_logout_logic import loginLogic
+
+from infra.basePage import base
+from logic.login_sucsess_logic import loginLogic
 import time
 from selenium.common import NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException
 from selenium.webdriver.common.by import By
@@ -7,7 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-class RunCode(loginLogic):
+class RunCode(base):
 
     PYTHON_TURTORIAL_XPATH = '//a[@href="https://www.geeksforgeeks.org/python-programming-language/"]'
     # CLOSE_MENU_XPATH='/html/body/nav/div/div[1]/span'
@@ -17,23 +19,67 @@ class RunCode(loginLogic):
     CHANGE_CODE_XPATH='//pre[@class=" CodeMirror-line "]'
     RUN_CODE_XPATH='//*[@id="run-code-button"]'
     RESULT_XPATH='//pre[@class="output-pre"]'
+    SEARCH_BTN_XPAAH = '//input[@class="ant-input ant-input-lg"]'
+    PRESS_ON_SEARCH_BTN_XPATH = '//button[@class="ant-btn ant-btn-default ant-btn-lg ant-input-search-button"]'
+    FIRST_SEARCH_RESULT = '//div[@class="ant-row"]//a[@class="font-primary"]'
+    SPINNER_CLASS="spinner-loading-overlay"
 
-    def __init__(self, num, list_info, cabs):
-        super().__init__(num, list_info, cabs)
 
-    # # a method to close the menu by pressing on the X button (this is only for chrome)
-    # def close_menu(self):
-    #     try:
-    #         close_menu_btn = WebDriverWait(self._driver, 10).until(
-    #             EC.visibility_of_element_located((By.XPATH, self.CLOSE_MENU_XPATH)))
-    #         close_menu_btn.click()
-    #     except StaleElementReferenceException:
-    #         close_menu_btn = WebDriverWait(self._driver, 10).until(
-    #             EC.visibility_of_element_located((By.XPATH, self.CLOSE_MENU_XPATH)))
-    #         close_menu_btn.click()
+    def __init__(self, num, list_info, cabs, driver=None):
+        super().__init__(list_info)
+        self.configInfo=list_info
+        if driver is None:
+            self.driver_set_up(cabs)
+        else:
+            self._driver = driver
+        self.num = num
+
+
+
+    # a method to click on the search bar and write something
+    def click_on_search_bar_and_type(self):
+        # Wait for the overlay to be invisible before attempting to click on the element
+        WebDriverWait(self._driver, 10).until_not(
+            EC.visibility_of_element_located((By.CLASS_NAME, self.SPINNER_CLASS))
+        )
+
+        try:
+            search_bar = WebDriverWait(self._driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, self.SEARCH_BTN_XPAAH)))
+            search_bar.click()
+            search_bar.clear()  # Clear any existing text in the input field
+            search_bar.send_keys("python string len")
+        except Exception as e:
+            # Wait for the overlay to be invisible before attempting to click on the element
+            WebDriverWait(self._driver, 10).until_not(
+                EC.visibility_of_element_located((By.CLASS_NAME, self.SPINNER_CLASS))
+            )
+            search_bar = WebDriverWait(self._driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, self.SEARCH_BTN_XPAAH)))
+            search_bar.click()
+            search_bar.clear()  # Clear any existing text in the input field
+            search_bar.send_keys("python string len")
+
+
+    # a method to click on the search
+    def click_on_search_btn(self):
+        search_btn = WebDriverWait(self._driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, self.PRESS_ON_SEARCH_BTN_XPATH)))
+        search_btn.click()
+
+    # takes the first result and checks if its relevant
+    def check_on_first_result(self):
+        first_result = WebDriverWait(self._driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, self.FIRST_SEARCH_RESULT)))
+        first_result.click()
 
     # this method is to click on the python toturials
     def click_on_python_toturials(self):
+        # Wait for the overlay to be invisible before attempting to click on the element
+        WebDriverWait(self._driver, 10).until_not(
+            EC.visibility_of_element_located((By.CLASS_NAME, self.SPINNER_CLASS))
+        )
+
         try:
             python_tutrial_btn = WebDriverWait(self._driver, 10).until(
                 EC.visibility_of_element_located((By.XPATH, self.PYTHON_TURTORIAL_XPATH)))
@@ -63,7 +109,7 @@ class RunCode(loginLogic):
     def scroll_down(self):
         # Scroll down to see comments
         for _ in range(1):
-            self._driver.execute_script("window.scrollBy(0, 300)")  # Scroll down by 500 pixels
+            self._driver.execute_script("window.scrollBy(0, 200)")  # Scroll down by 500 pixels
 
     # click on the edit code button
     def click_on_edit_code(self):
@@ -108,9 +154,11 @@ class RunCode(loginLogic):
             EC.visibility_of_element_located((By.XPATH, self.RESULT_XPATH)))
         # Get the text content of the <pre> element
         # Get the text of the element and remove spaces
-        # print(runResult.text,"55555555555555555")
-        value=len("mhmdhu")
-        return value
+        while runResult.text==" Request Compiling...":
+            pass
+        value=runResult.text[0]
+        # print(runResult.text[0])
+        return int(value)
 
 
 
@@ -118,26 +166,19 @@ class RunCode(loginLogic):
     # Method to execute all steps of the running code process
     def execute_all_run_code_process(self):
         try:
-            if self.num == 1:
-                self.click_on_menu()
-                self.click_on_sign_in()
-            else:
-                self.click_on_login_fox()
-            self.enter_email_adress()
-            self.enter_password("MHMDhuss2001@")
-            self.press_on_enter()
-            # self.close_menu()
-            time.sleep(2)
-            self.click_on_python_toturials()
-            self.click_on_learn_strings()
-            self.click_on_strings_length()
+            self.click_on_search_bar_and_type()
+            time.sleep(self.configInfo["sleep_time"])
+            self.click_on_search_btn()
+            self.check_on_first_result()
+            time.sleep(self.configInfo["sleep_time"])
             self.scroll_down()
             self.click_on_edit_code()
             self.change_code()
             self.press_keys()
             self.click_on_run_code()
             result=self.get_reuslt_of_run()
-            time.sleep(5)
             return result
         except Exception as e:
             print(e)
+            return False
+

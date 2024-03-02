@@ -10,6 +10,11 @@
       "platform_name": "Windows 11"
     }
   ],
+  "sleep_time": 2,
   "testing_mode": "parallel" ,
-  "web_link": "https://www.geeksforgeeks.org/"
+  "web_link": "https://www.geeksforgeeks.org/",
+  "emailChrome": "mhmdhuss44@gmail.com",
+  "passwordchrome": "MHMDhuss2001@",
+  "emailFirefox": "mhmdnoor79@gmail.com",
+  "passwordfirefox": "MHMDhuss2001@"
 }

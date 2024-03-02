@@ -1,15 +1,10 @@
 import concurrent.futures.thread
-import time
 import unittest
-from functools import partial
-from selenium import webdriver
 import concurrent.futures
-from infra.basePage import base
 from infra.wrapper import browserWrapper
-from logic.article_logic import writeArticle
-from logic.login_logout_logic import loginLogic, unsucess_login, logout_logic
-from logic.run_code_logic import RunCode
-from logic.videos_logic import saveVideo, unsaveVideos
+from logic.login_sucsess_logic import loginLogic
+from logic.videos_save_logic import saveVideo
+from logic.videos_unsave_logic import unsaveVideos
 
 
 class videoTests(unittest.TestCase):
@@ -17,43 +12,51 @@ class videoTests(unittest.TestCase):
         self.infra_layer=browserWrapper()
         self.configs=self.infra_layer.get_all_configurations()
 
-
-    def tearDown(self) -> None:
-        self.driver.quit()
-
     def test_run_grid_serial(self):
         print(self.infra_layer.cab_list)
-        for cab,num in self.infra_layer.cab_list:
-            self.test_verify_successful_saving_video(cab,num)
+        for cabs in self.infra_layer.cab_list:
+            self.test_verify_successful_saving_video(cabs)
 
-    # def test_run_grid_parallel(self):
-    #     with concurrent.futures.ThreadPoolExecutor(max_workers=len(self.basePage.cab_list)) as executor:
-    #         # Create a list of partial functions, each with one cap argument fixed
-    #         partial_functions = [partial(self.test_execute_language, cap) for cap in self.basePage.cab_list]
-    #         # Execute the partial functions in parallel
-    #         executor.map(lambda f: f(), partial_functions)
+    def test_run_grid_parallel(self):
+        with concurrent.futures.ThreadPoolExecutor(max_workers=len(self.infra_layer.cab_list)) as executor:
+            executor.map(self.test_verify_successful_saving_video, self.infra_layer.cab_list)
+
 
     # test to verify that we can save a video and the saved video will appear under saved videos on the user profile
-    def test_verify_successful_saving_video(self, cabs, browserType):
-        try:
-            self.savedVideo = saveVideo(browserType,self.configs,cabs)
-            result = self.savedVideo.execute_all_save_video_process()
-            self.driver = self.savedVideo._driver
-            time.sleep(2)
-            assert result, "video wasnt saved successfuly"
-        except Exception as e:
-            assert False, f"An error occurred: {str(e)}"
+    def test_verify_successful_saving_video(self, cab_info):
+        cap, browser_type = cab_info
 
-    # test to verify that we can like a video and that the liking count will increase by 1
-    def test_verify_successful_unsave_video(self, cabs, browserType):
-        try:
-            self.unsavedVideo = unsaveVideos(browserType,self.configs,cabs)
-            result = self.unsavedVideo.unsave_video_flow()
-            self.driver = self.unsavedVideo._driver
-            time.sleep(2)
-            assert not result, "video wasnt unsaved successfuly"
-        except Exception as e:
-            assert False, f"An error occurred: {str(e)}"
+        self.loginPage = loginLogic(browser_type, self.infra_layer.get_all_configurations(), cap)
+        temp = self.loginPage.execute_all_log_in_flow_mod()
+
+        self.savedVideo = saveVideo(browser_type,self.infra_layer.get_all_configurations(),cap,self.loginPage._driver)
+        result = self.savedVideo.execute_all_save_video_process()
+        assert result, "video wasnt saved successfuly"
+
+        self.infra_layer.quit_drive(self.savedVideo._driver)
+
+
+    # test to verify that we can unsave a video
+    def test_verify_successful_unsave_video(self, cab_info):
+        cap, browser_type = cab_info
+
+        # first we log in
+        self.loginPage = loginLogic(browser_type, self.infra_layer.get_all_configurations(), cap)
+        temp = self.loginPage.execute_all_log_in_flow_mod()
+
+        # then we save a video
+        self.savedVideo = saveVideo(browser_type, self.infra_layer.get_all_configurations(), cap, self.loginPage._driver)
+        result = self.savedVideo.execute_all_save_video_process()
+
+        # then the unsave video test
+        self.unsavedVideo = unsaveVideos(browser_type,self.infra_layer.get_all_configurations(),cap,self.savedVideo._driver)
+        result = self.unsavedVideo.unsave_video_flow()
+        self.driver = self.unsavedVideo._driver
+        assert not result, "video wasnt unsaved successfuly"
+
+        self.infra_layer.quit_drive(self.unsavedVideo._driver)
+
+
 
 
 

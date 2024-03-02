@@ -6,8 +6,6 @@ class base:
         self.info=list_info
 
 
-
-
     def driver_set_up(self,cap):
         hub_url = self.info.get('hub_url')
         web_url = self.info.get('web_link')
@@ -21,6 +19,8 @@ class base:
 
         self._driver = webdriver.Remote(command_executor=hub_url, options=cap)
         self._driver.get(web_url)
+        # Maximize the browser window
+        # self._driver.maximize_window()
 
 
 
