@@ -1,7 +1,5 @@
 from selenium.webdriver import Keys, ActionChains
-
 from infra.basePage import base
-from logic.login_sucsess_logic import loginLogic
 import time
 from selenium.common import NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException
 from selenium.webdriver.common.by import By
@@ -12,7 +10,6 @@ from selenium.webdriver.support import expected_conditions as EC
 class RunCode(base):
 
     PYTHON_TURTORIAL_XPATH = '//a[@href="https://www.geeksforgeeks.org/python-programming-language/"]'
-    # CLOSE_MENU_XPATH='/html/body/nav/div/div[1]/span'
     LEARN_STRINGS_XPATH="//h2[text()='Python String']"
     STRINGS_LEN_XPTAH='//a[text()="Python string length | len() function to find string length"]'
     EDIT_CODE='//*[@id="run-and-edit-button"]'
