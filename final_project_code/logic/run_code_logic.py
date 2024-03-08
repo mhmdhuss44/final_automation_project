@@ -166,14 +166,17 @@ class RunCode(base):
             self.click_on_search_bar_and_type()
             time.sleep(self.configInfo["sleep_time"])
             self.click_on_search_btn()
+            time.sleep(2)
             self.check_on_first_result()
             time.sleep(self.configInfo["sleep_time"])
             self.scroll_down()
             self.click_on_edit_code()
+            time.sleep(1)
             self.change_code()
             self.press_keys()
             self.click_on_run_code()
             result=self.get_reuslt_of_run()
+            time.sleep(2)
             return result
         except Exception as e:
             print(e)

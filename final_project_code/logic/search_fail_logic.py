@@ -1,3 +1,5 @@
+import time
+
 from infra.basePage import base
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -50,8 +52,11 @@ class searchFail(base):
     def search_in_not_valid_flow(self):
         try:
             self.click_on_search_bar_and_type()
+            time.sleep(2)
             self.click_on_search_btn()
+            time.sleep(2)
             result=self.check_on_first_result()
+            time.sleep(2)
             return result
         except Exception as e:
             print(e)

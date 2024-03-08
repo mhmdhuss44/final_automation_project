@@ -11,7 +11,6 @@ class codeRunTest(unittest.TestCase):
         self.infra_layer=browserWrapper()
         self.configs=self.infra_layer.get_all_configurations()
 
-
     def test_run_grid_serial(self):
         print(self.infra_layer.cab_list)
         for cabs in self.infra_layer.cab_list:
@@ -22,7 +21,7 @@ class codeRunTest(unittest.TestCase):
             executor.map(self.test_verify_successful_code_run, self.infra_layer.cab_list)
 
 
-    # test to make sure than we can successfully run code
+    # test to make sure than we can successfully run a code using the compiler in the page
     def test_verify_successful_code_run(self, cab_info):
         cab, browser_type = cab_info
 
