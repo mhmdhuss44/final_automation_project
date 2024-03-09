@@ -1,7 +1,10 @@
-import unittest
+import json
 import pytest
+import unittest
+from selenium.webdriver.chrome import webdriver
+from selenium import webdriver
+from infra.wrapper import browserWrapper
 from test_api.credit_card_tests import cardTests
-
 
 class TestRunner:
     @staticmethod
@@ -11,17 +14,25 @@ class TestRunner:
 
     @staticmethod
     def run_parallel(browsers):
-        pytest_args = ['--boxed']
-        for browser in browsers:
-            pytest_args.extend(['-n', 'auto', '--browser', browser])
-        pytest.main(pytest_args)
+        for cab, _ in browsers:
+            browser_name = cab.capabilities['browserName']
+            print(f"Running tests in {browser_name} browser:")
+            driver = webdriver.Remote(command_executor='http://192.168.146.1:4444', options=cab)
+            cardTests.driver = driver
+
+            # Execute tests using pytest
+            pytest.main(['-v', 'test_api/credit_card_tests.py'])
+
+            driver.quit()
 
 if __name__ == "__main__":
     # Serial execution
     print("Running tests serially:")
     TestRunner.run_serial()
 
-    # # Parallel execution with Selenium
+    # Parallel execution with Selenium Grid
     print("\nRunning tests in parallel on different browsers:")
-    browsers_to_test = ['chrome', 'firefox']  # List of browsers to test
+    browser_wrapper = browserWrapper()
+    browsers_to_test = browser_wrapper.cab_list  # List of browser capabilities from browserWrapper
     TestRunner.run_parallel(browsers_to_test)
+
