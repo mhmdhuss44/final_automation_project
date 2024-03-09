@@ -58,6 +58,15 @@ class phoneTests(unittest.TestCase):
 
 
 
+    # negative test , to check the result for an invalid phone number
+    def test_validate_invalid_phone_number(self):
+
+        valid_phone=self.phone_logic.validate_phone_number("+972 05493668-4","IL")
+        valid_phone_json=valid_phone.json()
+        self.assertTrue(not valid_phone_json, "the phone number we got is correct for this country")
+
+
+
 
 
 
