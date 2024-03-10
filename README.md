@@ -1,7 +1,7 @@
 # Final Project
 
 ## Objective
-The objective of this project is to demonstrate proficiency in implementing automation infrastructure and developing tests using Selenium. The project emphasizes adherence to test automation best practices, including test isolation, parallelism, and stability.
+The objective of this project is to demonstrate proficiency in implementing automation infrastructure and developing tests using Selenium. The project emphasizes adherence to test automation best practices, including test isolation, parallelism, and stability..
 
 ## Scope
 - Write a test plan covering all aspects of testing.
