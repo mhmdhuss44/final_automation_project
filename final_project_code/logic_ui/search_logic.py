@@ -1,5 +1,5 @@
 from infra.basePage import base
-from logic.login_sucsess_logic import loginLogic
+from logic_ui.login_sucsess_logic import loginLogic
 import time
 from selenium.common import ElementClickInterceptedException
 from selenium.webdriver.common.by import By

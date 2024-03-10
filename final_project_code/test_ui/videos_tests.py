@@ -2,9 +2,9 @@ import concurrent.futures.thread
 import unittest
 import concurrent.futures
 from infra.wrapper import browserWrapper
-from logic.login_sucsess_logic import loginLogic
-from logic.videos_save_logic import saveVideo
-from logic.videos_unsave_logic import unsaveVideos
+from logic_ui.login_sucsess_logic import loginLogic
+from logic_ui.videos_save_logic import saveVideo
+from logic_ui.videos_unsave_logic import unsaveVideos
 
 
 class videoTests(unittest.TestCase):
@@ -22,7 +22,7 @@ class videoTests(unittest.TestCase):
             executor.map(self.test_verify_successful_saving_video, self.infra_layer.cab_list)
 
 
-    # test to verify that we can save a video and the saved video will appear under saved videos on the user profile
+    # test_ui to verify that we can save a video and the saved video will appear under saved videos on the user profile
     def test_verify_successful_saving_video(self, cab_info):
         cap, browser_type = cab_info
 
@@ -36,7 +36,7 @@ class videoTests(unittest.TestCase):
         self.infra_layer.quit_drive(self.savedVideo._driver)
 
 
-    # test to verify that we can unsave a video
+    # test_ui to verify that we can unsave a video
     def test_verify_successful_unsave_video(self, cab_info):
         cap, browser_type = cab_info
 
@@ -48,7 +48,7 @@ class videoTests(unittest.TestCase):
         self.savedVideo = saveVideo(browser_type, self.infra_layer.get_all_configurations(), cap, self.loginPage._driver)
         result = self.savedVideo.execute_all_save_video_process()
 
-        # then the unsave video test
+        # then the unsave video test_ui
         self.unsavedVideo = unsaveVideos(browser_type,self.infra_layer.get_all_configurations(),cap,self.savedVideo._driver)
         result = self.unsavedVideo.unsave_video_flow()
         self.driver = self.unsavedVideo._driver

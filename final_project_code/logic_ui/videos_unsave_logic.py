@@ -1,6 +1,6 @@
 from selenium.webdriver import Keys, ActionChains
 from infra.basePage import base
-from logic.login_sucsess_logic import loginLogic
+from logic_ui.login_sucsess_logic import loginLogic
 import time
 from selenium.common import NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException, \
     ElementNotInteractableException

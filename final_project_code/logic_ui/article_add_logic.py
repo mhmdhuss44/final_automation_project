@@ -65,11 +65,11 @@ class writeArticle(base):
     
                 Central to the curriculum is the exploration of the software development lifecycle (SDLC), elucidating the stages involved in bringing a software product from conception to deployment. Understanding SDLC is crucial as it provides a roadmap for effective testing strategies at each phase of development, ultimately fostering a culture of quality assurance.
     
-                As the course progresses, participants delve into the practical application of testing methodologies, preparing comprehensive documents such as test plans (STP), test designs (STD), and test reports (STR). Utilizing industry-standard tools like TestRail and Jira, learners harness the power of efficient test management, streamlining the testing process for enhanced productivity and collaboration.
+                As the course progresses, participants delve into the practical application of testing methodologies, preparing comprehensive documents such as test_ui plans (STP), test_ui designs (STD), and test_ui reports (STR). Utilizing industry-standard tools like TestRail and Jira, learners harness the power of efficient test_ui management, streamlining the testing process for enhanced productivity and collaboration.
     
                 Transitioning seamlessly into the second phase of the course, the focus shifts towards automation in Python. Building upon a strong foundation in object-oriented programming (OOP) and Python basics, participants embark on an exhilarating journey into the realm of automation scripting.
     
-                Hands-on experience with Selenium and Selenium Grid empowers learners to automate test cases across various web applications, leveraging the versatility of Python scripting. From functional testing to cross-browser compatibility, participants gain proficiency in executing a myriad of test scenarios with precision and efficiency."""
+                Hands-on experience with Selenium and Selenium Grid empowers learners to automate test_ui cases across various web applications, leveraging the versatility of Python scripting. From functional testing to cross-browser compatibility, participants gain proficiency in executing a myriad of test_ui scenarios with precision and efficiency."""
 
                 articles_body.send_keys(text)
             else:

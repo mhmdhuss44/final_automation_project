@@ -1,4 +1,4 @@
-# Class to handle another test, ensuring that we can't login with the wrong password
+# Class to handle another test_ui, ensuring that we can't login with the wrong password
 from selenium.common import NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait

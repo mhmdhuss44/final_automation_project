@@ -4,7 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from infra.basePage import base
 
-# Class to handle logout logic
+# Class to handle logout logic_ui
 class logout_logic(base):
     LOGOUT_XPATH = '//span[@class="gfg-icon gfg-icon_default-pos gfg-icon_logout"]'
     SIGN_IN_BUTTON_CSS = 'a.gfg-sec-bg.color-white.login-modal-btn'

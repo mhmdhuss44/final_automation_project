@@ -27,8 +27,8 @@ class TestRunner:
 
 if __name__ == "__main__":
     # Serial execution
-    print("Running tests serially:")
-    TestRunner.run_serial()
+    # print("Running tests serially:")
+    # TestRunner.run_serial()
 
     # Parallel execution with Selenium Grid
     print("\nRunning tests in parallel on different browsers:")

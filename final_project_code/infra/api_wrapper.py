@@ -11,8 +11,6 @@ class APIWrapper:
         self.my_request = requests
         self.load_config()
 
-
-
     def load_config(self):
         with open(self.PATH_JSON, 'r') as file:
             json_content = json.load(file)
@@ -23,14 +21,14 @@ class APIWrapper:
 
 
 
-    def api_get_request(self, endpoint,reqBody=None):
+    def api_get_request(self, url,reqBody=None):
         headers = {'X-API-KEY': self.api_key}  # Add API key to the headers
-        url = self.url + endpoint
         if(reqBody is None):
             self.response = self.my_request.get(url, headers=headers)
         else:
             self.response = requests.post(url, json=reqBody, headers=headers)
         if self.response.ok:
+
             return self.response
         else:
             return self.response.status_code

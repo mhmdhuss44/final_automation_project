@@ -2,8 +2,8 @@ import concurrent.futures.thread
 import unittest
 import concurrent.futures
 from infra.wrapper import browserWrapper
-from logic.login_sucsess_logic import loginLogic
-from logic.run_code_logic import RunCode
+from logic_ui.login_sucsess_logic import loginLogic
+from logic_ui.run_code_logic import RunCode
 
 
 class codeRunTest(unittest.TestCase):
@@ -21,7 +21,7 @@ class codeRunTest(unittest.TestCase):
             executor.map(self.test_verify_successful_code_run, self.infra_layer.cab_list)
 
 
-    # test to make sure than we can successfully run a code using the compiler in the page
+    # test_ui to make sure than we can successfully run a code using the compiler in the page
     def test_verify_successful_code_run(self, cab_info):
         cab, browser_type = cab_info
 

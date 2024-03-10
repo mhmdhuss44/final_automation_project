@@ -1,13 +1,14 @@
 
 class passwordLogic:
 
-    def __init__(self,api_object):
+    def __init__(self, api_object, url):
         self.my_api = api_object
+        self.url = url
 
     # get a password with all the conditions
     def get_strong_password(self,passLen,conatins_digit,has_upper,has_special):
         new_pass_url = f"Text/Password?length={passLen}&hasDigits={conatins_digit}&hasUppercase={has_upper}&hasSpecial={has_special}"
-        response = self.my_api.api_get_request(new_pass_url)
+        response = self.my_api.api_get_request(self.url+new_pass_url)
         return response
 
     # to verify that a password has a digit

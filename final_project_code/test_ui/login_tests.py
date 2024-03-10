@@ -3,9 +3,9 @@ import time
 import unittest
 import concurrent.futures
 from infra.wrapper import browserWrapper
-from logic.login_fail_logic import unsucess_login
-from logic.login_sucsess_logic import loginLogic
-from logic.logout_logic import logout_logic
+from logic_ui.login_fail_logic import unsucess_login
+from logic_ui.login_sucsess_logic import loginLogic
+from logic_ui.logout_logic import logout_logic
 
 
 class loginTests(unittest.TestCase):
@@ -24,7 +24,7 @@ class loginTests(unittest.TestCase):
             executor.map(self.test_verify_successful_login, self.infra_layer.cab_list)
 
 
-    # this test is used to verify that we can successfully login with the right email and password
+    # this test_ui is used to verify that we can successfully login with the right email and password
     def test_verify_successful_login(self, cab_info):
         cap, browser_type = cab_info
 
@@ -37,7 +37,7 @@ class loginTests(unittest.TestCase):
 
 
 
-    # negative test: this test is used to verify that we cant successed to login with right email and wrong password
+    # negative test_ui: this test_ui is used to verify that we cant successed to login with right email and wrong password
     def test_verify_unsuccessful_login(self, cab_info):
         cap, browser_type = cab_info
 
@@ -52,7 +52,7 @@ class loginTests(unittest.TestCase):
 
 
 
-    # this test is used to verify that the user can successfully logout after he logged in
+    # this test_ui is used to verify that the user can successfully logout after he logged in
     def test_verify_successful_logout(self, cab_info):
         cap, browser_type = cab_info
 

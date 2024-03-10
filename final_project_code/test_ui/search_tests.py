@@ -3,8 +3,8 @@ import time
 import unittest
 import concurrent.futures
 from infra.wrapper import browserWrapper
-from logic.search_fail_logic import searchFail
-from logic.search_logic import searchHebrew
+from logic_ui.search_fail_logic import searchFail
+from logic_ui.search_logic import searchHebrew
 
 
 class videoTests(unittest.TestCase):
@@ -23,7 +23,7 @@ class videoTests(unittest.TestCase):
             executor.map(self.test_verify_unsuccessful_search, self.infra_layer.cab_list)
 
 
-    # test to verify that we can search in hebrw langaue
+    # test_ui to verify that we can search in hebrw langaue
     def test_verify_successful_search(self, cab_info):
         cap, browser_type = cab_info
 
@@ -34,7 +34,7 @@ class videoTests(unittest.TestCase):
         self.infra_layer.quit_drive(self.search_hebrew._driver)
 
 
-    # negative test : test to verify that when we search invalid input we dont get any serach result
+    # negative test_ui : test_ui to verify that when we search invalid input we dont get any serach result
     def test_verify_unsuccessful_search(self,cab_info):
         cap, browser_type = cab_info
 

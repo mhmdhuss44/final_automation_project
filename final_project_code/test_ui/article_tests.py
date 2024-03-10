@@ -3,9 +3,9 @@ import time
 import unittest
 import concurrent.futures
 from infra.wrapper import browserWrapper
-from logic.article_add_logic import writeArticle
-from logic.article_rename_logic import modify_article
-from logic.login_sucsess_logic import loginLogic
+from logic_ui.article_add_logic import writeArticle
+from logic_ui.article_rename_logic import modify_article
+from logic_ui.login_sucsess_logic import loginLogic
 
 
 class articleTests(unittest.TestCase):
@@ -24,7 +24,7 @@ class articleTests(unittest.TestCase):
             executor.map(self.test_verify_successful_article_writing, self.infra_layer.cab_list)
 
 
-    # this test is to verify that we can successfuly add a new article
+    # this test_ui is to verify that we can successfuly add a new article
     def test_verify_successful_article_writing(self, cab_info):
         cap, browser_type = cab_info
 
@@ -38,7 +38,7 @@ class articleTests(unittest.TestCase):
         self.infra_layer.quit_drive(self.article._driver)
 
 
-    # this test is to verify that we can successfuly change an article name
+    # this test_ui is to verify that we can successfuly change an article name
     def test_verify_successful_article_reName(self, cab_info):
         cap, browser_type = cab_info
 
