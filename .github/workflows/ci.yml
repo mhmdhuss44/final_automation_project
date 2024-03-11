@@ -15,7 +15,7 @@ jobs:
           python-version: '3.x'
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt  # Adjust this command if you have specific requirements
+          pip install requests random2
 
       - name: Run passwordLogic test
         run: |
