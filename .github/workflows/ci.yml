@@ -1,0 +1,11 @@
+name: Python Build and Test
+on: [push]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Print a message
+        run: echo "Hello, this is the build and test workflow!"
