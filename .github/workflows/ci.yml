@@ -17,10 +17,11 @@ jobs:
         run: |
           pip install requests random2
 
+      - name: Add final_project_code directory to Python path
+        run: python -c "import sys; sys.path.append('final_project_code');"
+        
       - name: Run passwordLogic test
-        run: |
-          python -c "import sys; sys.path.append('final_project_code');" \
-          && python -m unittest test_api.password_tests_api
+        run: python -m unittest test_api.password_tests_api
           
 
       
