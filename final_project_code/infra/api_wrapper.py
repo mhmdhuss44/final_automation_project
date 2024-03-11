@@ -23,15 +23,24 @@ class APIWrapper:
 
     def api_get_request(self, url,reqBody=None):
         headers = {'X-API-KEY': self.api_key}  # Add API key to the headers
-        if(reqBody is None):
-            self.response = self.my_request.get(url, headers=headers)
-        else:
-            self.response = requests.post(url, json=reqBody, headers=headers)
+        self.response = self.my_request.get(url, headers=headers)
+
         if self.response.ok:
 
             return self.response
         else:
             return self.response.status_code
+
+
+    def api_post_request(self,url,reqBody):
+        headers = {'X-API-KEY': self.api_key}  # Add API key to the headers
+        self.response = requests.post(url, json=reqBody, headers=headers)
+        if self.response.ok:
+
+            return self.response
+        else:
+            return self.response.status_code
+
 
 
 

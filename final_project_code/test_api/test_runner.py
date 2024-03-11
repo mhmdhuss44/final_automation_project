@@ -4,7 +4,7 @@ import unittest
 from selenium.webdriver.chrome import webdriver
 from selenium import webdriver
 from infra.wrapper import browserWrapper
-from test_api.credit_card_tests import cardTests
+from test_api.credit_card_tests_api import cardTests
 
 class TestRunner:
     @staticmethod
@@ -21,7 +21,7 @@ class TestRunner:
             cardTests.driver = driver
 
             # Execute tests using pytest
-            pytest.main(['-v', 'test_api/credit_card_tests.py'])
+            pytest.main(['-v', 'test_api/credit_card_tests_api.py'])
 
             driver.quit()
 
