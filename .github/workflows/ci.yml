@@ -19,7 +19,8 @@ jobs:
 
       - name: Run passwordLogic test
         run: |
-          python -m unittest final_project_code/test_api/password_tests_api.py
+          python -c "import sys; sys.path.append('final_project_code');
+          python -m unittest test_api/password_tests_api.py
           
 
       
