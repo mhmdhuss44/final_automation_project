@@ -19,11 +19,7 @@ jobs:
 
       - name: Run passwordLogic test
         run: |
-          python -c "import sys; sys.path.append('final_project_code'); \
-          from logic_api.password_logic_api import passwordLogic; \
-          import unittest; \
-          loader = unittest.TestLoader(); suite = loader.loadTestsFromTestCase(passwordTests); \
-          runner = unittest.TextTestRunner(); result = runner.run(suite); \
-          exit(not result.wasSuccessful())"
+          python -m unittest final_project_code/test_api/password_tests_api.py
+          
 
       
