@@ -1,5 +1,5 @@
 name: Python Build and Test
-on: push
+on: [push]
 
 jobs:
   build_and_test:
@@ -7,3 +7,5 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Print a message
+        run: echo "Hello, this is the build and test workflow!"
